@@ -15,3 +15,5 @@ Package list:
 - Visual C++ Redistributables
 
 Suggest more packages in issues.
+
+Script is a work in progress so expect bugs.

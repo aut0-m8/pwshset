@@ -64,7 +64,7 @@ $newPath += ";$oldPath"
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
 # log
-$installedPackages = @("git", "7zip", "winget", "mpv", "openjdk", "python", "pip", "msys2", "dotnet3.5", "dotnet", "vcredist-all", "yt-dlp", "ffmpeg")
+$installedPackages = @("git", "7zip", "winget", "mpv", "openjdk", "python", "msys2", "dotnet", "vcredist-all", "yt-dlp", "ffmpeg")
 $installedPackages | ForEach-Object { $_ + " --version" | Out-File -Append -FilePath ".\winset.log" }
 
 Write-Host "Installation finished!"

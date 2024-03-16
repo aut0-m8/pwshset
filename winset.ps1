@@ -11,7 +11,7 @@ function githubfetch {
     return $latestAsset.browser_download_url
 }
 
-
+cd C:\
 
 # choco
 Write-Host "Installing Chocolatey..."
@@ -64,8 +64,8 @@ $newPath += ";$oldPath"
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
 # log
-$installedPackages = @("git", "7zip", "winget", "mpv", "openjdk", "python", "msys2", "dotnet", "vcredist-all", "yt-dlp", "ffmpeg")
-$installedPackages | ForEach-Object { $_ + " --version" | Out-File -Append -FilePath ".\winset.log" }
+# $installedPackages = @("git", "7zip", "winget", "mpv", "java", "python", "msys2", "dotnet", "vcredist-all", "yt-dlp", "ffmpeg")
+# $installedPackages | ForEach-Object { $_ + " --version" | Out-File -Append -FilePath ".\winset.log" }
 
 Write-Host "Installation finished!"
 Get-Content ".\winset.log"

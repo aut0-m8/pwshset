@@ -27,21 +27,22 @@ choco install -y python --params "/InstallDir:C:\Python"
 choco install -y msys2
 choco install -y dotnet
 choco install -y vcredist-all
+choco install -y mupdf
 
 
 # yt-dlp
-Write-Host "Installing yt-dlp..."
-$ytDlp_ = githubfetch -Repo "yt-dlp/yt-dlp" -AssetFilter "yt-dlp.exe"
-Invoke-WebRequest -Uri $ytDlp_ -OutFile "yt-dlp.exe"
-Move-Item -Path "yt-dlp.exe" -Destination "$env:ProgramFiles\yt-dlp\yt-dlp.exe"
+# Write-Host "Installing yt-dlp..."
+# $ytDlp_ = githubfetch -Repo "yt-dlp/yt-dlp" -AssetFilter "yt-dlp.exe"
+# Invoke-WebRequest -Uri $ytDlp_ -OutFile "yt-dlp.exe"
+# Move-Item -Path "yt-dlp.exe" -Destination "$env:ProgramFiles\yt-dlp\yt-dlp.exe"
 
 # ffmpeg
-Write-Host "Downloading ffmpeg..."
-$ffmpeg_ = githubfetch -Repo "FFmpeg/FFmpeg" -AssetFilter "ffmpeg-*-win64-static.zip"
-Invoke-WebRequest -Uri $ffmpeg_ -OutFile "ffmpeg.zip"
-Write-Host "Installing ffmpeg..."
-Expand-Archive -Path "ffmpeg.zip" -DestinationPath "$env:ProgramFiles\ffmpeg"
-Remove-Item -Path "ffmpeg.zip" -Force
+# Write-Host "Downloading ffmpeg..."
+# $ffmpeg_ = githubfetch -Repo "FFmpeg/FFmpeg" -AssetFilter "ffmpeg-*-win64-static.zip"
+#Invoke-WebRequest -Uri $ffmpeg_ -OutFile "ffmpeg.zip"
+# Write-Host "Installing ffmpeg..."
+# Expand-Archive -Path "ffmpeg.zip" -DestinationPath "$env:ProgramFiles\ffmpeg"
+# Remove-Item -Path "ffmpeg.zip" -Force
 
 # add to PATH
 Write-Host "Setting environment variables..."
@@ -63,9 +64,41 @@ $newPath += ";$oldPath"
 
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
-# log
-# $installedPackages = @("git", "7zip", "winget", "mpv", "java", "python", "msys2", "dotnet", "vcredist-all", "yt-dlp", "ffmpeg")
-# $installedPackages | ForEach-Object { $_ + " --version" | Out-File -Append -FilePath ".\winset.log" }
-
 Write-Host "Installation finished!"
-Get-Content ".\winset.log"
+
+function Show-Menu {
+    Write-Host "Extras (^C to exit)`n"
+    Write-Host "0 - Run MAS (Microsoft Activation Scripts)`n"
+    Write-Host "1 - Install Firefox ESR`n"
+    Write-Host "2 - Install Vim`n"
+}
+
+while ($true) {
+    Show-Menu
+    $choice = Read-Host "> "
+
+    $selectedOptions = @()
+
+    # range
+    if ($choice -match '(\d+)\s*-\s*(\d+)') {
+        $startRange = [int]$Matches[1]
+        $endRange = [int]$Matches[2]
+        $selectedOptions += $startRange..$endRange
+    }
+    else {
+        # mult
+        $selectedOptions += $choice -split '\s+'
+    }
+
+    foreach ($option in $selectedOptions) {
+        switch ($option) {
+            "0" { irm https://massgrave.dev/get | iex }
+            "1" { choco install firefoxesr }
+            "2" { choco install mupdf }
+            "2" { choco install vim }
+            default
+        }
+    }
+
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+}

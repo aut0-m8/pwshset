@@ -16,6 +16,8 @@ Package list:
 - Cygwin
 - MinGW
 - Axel
+- yt-dlp
+- FFmpeg
 
 **Suggest** more packages in issues.
 

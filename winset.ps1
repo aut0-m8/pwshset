@@ -15,27 +15,17 @@ function githubfetch {
 
 # choco
 Write-Host "Installing Chocolatey..."
-Set-ExecutionPolicy ByPass -Scope Process -Force -y; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-Write-Host "Installing git"
+Write-Host "Installing packages"
 choco install -y git
-Write-Host "Installing 7zip"
 choco install -y 7zip
-Write-Host "Installing winget"
 choco install -y winget
-Write-Host "Installing mpv"
 choco install -y mpv
-Write-Host "Installing openjdk"
 choco install -y openjdk
-Write-Host "Installing python"
 choco install -y python --params "/InstallDir:C:\Python"
-Write-Host "Installing pip"
-choco install -y pip
-Write-Host "Installing msys2"
 choco install -y msys2
-Write-Host "Installing dotnet"
-choco install -y dotnet3.5 dotnet
-Write-Host "Installing vcredist"
+choco install -y dotnet
 choco install -y vcredist-all
 
 
@@ -56,7 +46,7 @@ Remove-Item -Path "ffmpeg.zip" -Force
 # add to PATH
 Write-Host "Setting environment variables..."
 $installDirs = @(
-    "${env:ProgramFiles}\OpenJDK\jdk-*\bin",
+    "${env:ProgramFiles}\Java\jdk-*\bin",
     "${env:ProgramFiles}\Python\Scripts",
     "${env:ProgramFiles}\msys64\usr\bin",
     "${env:ProgramFiles}\dotnet",

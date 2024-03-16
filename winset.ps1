@@ -11,9 +11,11 @@ function githubfetch {
     return $latestAsset.browser_download_url
 }
 
+
+
 # choco
 Write-Host "Installing Chocolatey..."
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+Set-ExecutionPolicy ByPass -Scope Process -Force -y; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 Write-Host "Installing packages..."
 choco install -y git

@@ -17,17 +17,27 @@ function githubfetch {
 Write-Host "Installing Chocolatey..."
 Set-ExecutionPolicy ByPass -Scope Process -Force -y; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-Write-Host "Installing packages..."
+Write-Host "Installing git"
 choco install -y git
+Write-Host "Installing 7zip"
 choco install -y 7zip
+Write-Host "Installing winget"
 choco install -y winget
+Write-Host "Installing mpv"
 choco install -y mpv
+Write-Host "Installing openjdk"
 choco install -y openjdk
+Write-Host "Installing python"
 choco install -y python --params "/InstallDir:C:\Python"
+Write-Host "Installing pip"
 choco install -y pip
+Write-Host "Installing msys2"
 choco install -y msys2
+Write-Host "Installing dotnet"
 choco install -y dotnet3.5 dotnet
+Write-Host "Installing vcredist"
 choco install -y vcredist-all
+
 
 # yt-dlp
 Write-Host "Installing yt-dlp..."

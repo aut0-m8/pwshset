@@ -1,16 +1,3 @@
-# github fetch func
-function githubfetch {
-    param(
-        [string]$Repo,
-        [string]$AssetFilter
-    )
-
-    $url = "https://api.github.com/repos/$Repo/releases/latest"
-    $releaseInfo = Invoke-RestMethod -Uri $url
-    $latestAsset = $releaseInfo.assets | Where-Object { $_.name -like $AssetFilter } | Sort-Object -Property @{Expression={[version]$_.name}} | Select-Object -Last 1
-    return $latestAsset.browser_download_url
-}
-
 cd C:\
 
 # choco
@@ -19,35 +6,23 @@ Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.We
 
 Write-Host "Installing packages"
 # runtime
-choco install -y openjdk
-choco install -y dotnet
 choco install -y vcredist-all
+choco install -y dotnet
+choco install -y openjdk
 choco install -y python --params "/InstallDir:C:\Python"
 # development
 choco install -y git
-choco install -y msys2
 choco install -y cygwin
 choco install -y mingw
+choco install -y msys2
 # general
+choco install -y axel
 choco install -y winget
 choco install -y 7zip
 choco install -y mpv
 choco install -y mupdf
-choco install -y axel
-
-# yt-dlp
-# Write-Host "Installing yt-dlp..."
-# $ytDlp_ = githubfetch -Repo "yt-dlp/yt-dlp" -AssetFilter "yt-dlp.exe"
-# Invoke-WebRequest -Uri $ytDlp_ -OutFile "yt-dlp.exe"
-# Move-Item -Path "yt-dlp.exe" -Destination "$env:ProgramFiles\yt-dlp\yt-dlp.exe"
-
-# ffmpeg
-# Write-Host "Downloading ffmpeg..."
-# $ffmpeg_ = githubfetch -Repo "FFmpeg/FFmpeg" -AssetFilter "ffmpeg-*-win64-static.zip"
-#Invoke-WebRequest -Uri $ffmpeg_ -OutFile "ffmpeg.zip"
-# Write-Host "Installing ffmpeg..."
-# Expand-Archive -Path "ffmpeg.zip" -DestinationPath "$env:ProgramFiles\ffmpeg"
-# Remove-Item -Path "ffmpeg.zip" -Force
+choco install -y ffmpeg
+choco install -y yt-dlp
 
 # add to PATH
 Write-Host "Setting environment variables..."

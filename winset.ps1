@@ -18,17 +18,22 @@ Write-Host "Installing Chocolatey..."
 Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
 Write-Host "Installing packages"
-choco install -y git
-choco install -y 7zip
-choco install -y winget
-choco install -y mpv
+# runtime
 choco install -y openjdk
-choco install -y python --params "/InstallDir:C:\Python"
-choco install -y msys2
 choco install -y dotnet
 choco install -y vcredist-all
+choco install -y python --params "/InstallDir:C:\Python"
+# development
+choco install -y git
+choco install -y msys2
+choco install -y cygwin
+choco install -y mingw
+# general
+choco install -y winget
+choco install -y 7zip
+choco install -y mpv
 choco install -y mupdf
-
+choco install -y axel
 
 # yt-dlp
 # Write-Host "Installing yt-dlp..."

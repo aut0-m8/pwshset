@@ -12,6 +12,7 @@ Package list:
 - MSYS2
 - .NET Latest
 - Visual C++ Redistributables
+- MuPDF
 
 **Suggest** more packages in issues.
 

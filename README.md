@@ -3,21 +3,29 @@
 Install script for basic Windows packages and utilities. Intended for use on Windows 10 and above. Script uses chocolatey as the package manager.
 
 Package list:
-- 7-Zip
-- Git
-- Winget
-- mpv
-- OpenJDK
-- Python
-- MSYS2
-- .NET Latest
-- Visual C++ Redistributables
-- MuPDF
-- Cygwin
-- MinGW
-- Axel
-- yt-dlp
-- FFmpeg
+#### runtime
+vcredist-all
+dotnet
+openjdk
+python
+#### development
+git
+cygwin
+mingw
+msys2
+#### general
+axel
+winget
+7zip
+mpv
+mupdf
+ffmpeg
+yt-dlp
+
+### extra options (optional)
+Activate Windows
+Install Firefox ESR
+Install vim
 
 **Suggest** more packages in issues.
 

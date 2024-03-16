@@ -13,6 +13,9 @@ Package list:
 - .NET Latest
 - Visual C++ Redistributables
 - MuPDF
+- Cygwin
+- MinGW
+- Axel
 
 **Suggest** more packages in issues.
 

@@ -4,6 +4,41 @@ if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 }
 
+$pkgmgr = choco
+$pkgflags = upgrade -y
+
+# install pkg
+function InstallPkg {
+  param([string]$pkgName)
+  Write-Host "[-] fetching & upgrading $pkgName"
+  $pkgmgr $mgrflags $pkgName > $null
+}
+
+# read csv
+function ReadPackagesFromCSV {
+    param(
+        [string]$csvPath
+    )
+    if (Test-Path $csvPath) {
+        Import-Csv $csvPath
+    } else {
+        Write-Host "[!] " -NoNewline -ForegroundColor Red
+        Write-Host "csv not found, use default?"
+        return @()
+    }
+}
+
+# Define the path to the CSV file
+$csvPath = "C:\path\to\your\packages.csv"  # Update this with the actual path
+
+# Read package names from the CSV file
+$packages = ReadPackagesFromCSV -csvPath $csvPath
+
+# Iterate over each package and install it
+foreach ($package in $packages) {
+    InstallPkg -pkgName $package.Name
+}
+
 Write-Host "[-] installing pkgs"
 # runtime
 choco upgrade -y vcredist-all
@@ -29,27 +64,6 @@ choco upgrade -y mpv
 choco upgrade -y mupdf
 choco upgrade -y ffmpeg
 choco upgrade -y yt-dlp
-
-# add to PATH
-Write-Host "[-] setting environment variables"
-$installDirs = @(
-    "${env:ProgramFiles}\Java\jdk-*\bin",
-    "${env:ProgramFiles}\Python\Scripts",
-    "${env:ProgramFiles}\msys64\usr\bin",
-    "${env:ProgramFiles}\dotnet",
-    "${env:ProgramFiles}\yt-dlp",
-    "${env:ProgramFiles}\ffmpeg\bin",
-    "${env:ProgramFiles}\Git\cmd",
-    "${env:ProgramFiles}\7-Zip",
-    "${env:ProgramFiles}\cygwin\bin",
-    "${env:ProgramFiles}\mingw\bin",
-    "${env:ProgramFiles}\msys2\usr\bin"
-)
-
-$oldPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-$newPath = $installDirs -join ";"
-$newPath += ";$oldPath"
-[Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
 
 Write-Host "[-] cleaning up"
 Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force -Recurse

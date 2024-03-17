@@ -22,7 +22,7 @@ Package list:
 - ffmpeg
 - yt-dlp
 
-### extra options (optional)
+### extra options
 - Activate Windows with Microsoft Activation Scripts
 - Install Firefox ESR
 - Install vim

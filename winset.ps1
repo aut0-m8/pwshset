@@ -63,15 +63,22 @@ Write-Host "1 - run winutil"
 Write-Host "2 - install Firefox ESR"
 Write-Host "3 - install NeoVim"
 
+function InstallOption {
+    param(
+        [char]$inputChar
+    )
+
+    switch ($inputChar) {
+        '0' { irm https://massgrave.dev/get | iex; break }
+        '1' { irm https://christitus.com/win | iex; break }
+        '2' { choco upgrade -y firefoxesr; break }
+        '3' { choco upgrade -y neovim; break }
+        'q' { exit }
+        default { Write-Host "invalid input" }
+    }
+}
+
 while ($true) {
-    $option = Read-Host ":"
-        switch ($option) {
-            "0" { irm https://massgrave.dev/get | iex }
-            "1" { irm https://christitus.com/win | iex }
-            "2" { choco upgrade -y firefoxesr }
-            "3" { choco upgrade -y neovim }
-            "q" { exit }
-            default { Write-Host "Invalid input!`n" }
-        }
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    $key = [System.Console]::ReadKey($true).KeyChar
+    InstallOption -inputChar $key
 }

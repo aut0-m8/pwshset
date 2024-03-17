@@ -16,12 +16,11 @@ choco upgrade -y make
 choco upgrade -y cygwin
 choco upgrade -y mingw
 choco upgrade -y msys2
-choco upgrade -y docker-desktop
+choco upgrade -y golang
 choco upgrade -y python --params "/InstallDir:C:\Python"
 # general
 choco upgrade -y gnupg
 choco upgrade -y sysinternals
-choco upgrade -y powertoys
 choco upgrade -y wireshark
 choco upgrade -y openvpn
 choco upgrade -y axel
@@ -61,7 +60,7 @@ Write-Host "q to exit`n"
 Write-Host "0 - permanently activate Windows`n"
 Write-Host "1 - run winutil"
 Write-Host "2 - install Firefox ESR`n"
-Write-Host "3 - install Vim`n"
+Write-Host "3 - install NeoVim`n"
 Write-Host "0-3, 0 1 2 3, 0"
 
 while ($true) {
@@ -85,7 +84,7 @@ while ($true) {
             "0" { irm https://massgrave.dev/get| iex }
             "1" { irm https://christitus.com/win | iex }
             "2" { choco upgrade -y firefoxesr }
-            "3" { choco upgrade -y vim-console }
+            "3" { choco upgrade -y neovim }
             "q" { exit }
             default { Write-Host "Invalid input!`n" }
         }

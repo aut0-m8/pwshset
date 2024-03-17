@@ -56,32 +56,18 @@ Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force -Recurse
 
 Write-Host "[!]" -NoNewline -ForegroundColor Green
 Write-Host "installation finished"
-Write-Host "q to exit`n"
-Write-Host "0 - permanently activate Windows`n"
+Write-Host "extras [q to exit]"
+Write-Host "------------------"
+Write-Host "0 - permanently activate Windows"
 Write-Host "1 - run winutil"
-Write-Host "2 - install Firefox ESR`n"
-Write-Host "3 - install NeoVim`n"
-Write-Host "0-3, 0 1 2 3, 0"
+Write-Host "2 - install Firefox ESR"
+Write-Host "3 - install NeoVim"
 
 while ($true) {
     $choice = Read-Host ":"
-
-    $selectedOptions = @()
-
-    # range
-    if ($choice -match '(\d+)\s*-\s*(\d+)') {
-        $startRange = [int]$Matches[1]
-        $endRange = [int]$Matches[2]
-        $selectedOptions += $startRange..$endRange
-    }
-    else {
-        # mult
-        $selectedOptions += $choice -split '\s+'
-    }
-
     foreach ($option in $selectedOptions) {
         switch ($option) {
-            "0" { irm https://massgrave.dev/get| iex }
+            "0" { irm https://massgrave.dev/get | iex }
             "1" { irm https://christitus.com/win | iex }
             "2" { choco upgrade -y firefoxesr }
             "3" { choco upgrade -y neovim }

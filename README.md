@@ -7,7 +7,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 2. `Set-ExecutionPolicy ByPass -Scope Process -Force`
 3. Execute script with `cd AppData/Local/Temp; iwr https://raw.githubusercontent.com/aut0-m8/winset/main/winset.ps1 -OutFile "winset.ps1"; .\winset.ps1; ri .\winset.ps1`. This will be shortened in v2.
 
-Package list:
+### package list:
 #### runtime
 - vcredist-all
 - dotnet

@@ -1,10 +1,8 @@
-cd C:\
-
 # choco
-Write-Host "Installing Chocolatey..."
+Write-Host "---[Installing Chocolatey]---"
 Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-Write-Host "Installing packages"
+Write-Host "---[Installing packages]---"
 # runtime
 choco install -y vcredist-all
 choco install -y dotnet
@@ -17,7 +15,6 @@ choco install -y mingw
 choco install -y msys2
 # general
 choco install -y axel
-choco install -y winget
 choco install -y 7zip
 choco install -y mpv
 choco install -y mupdf
@@ -25,7 +22,7 @@ choco install -y ffmpeg
 choco install -y yt-dlp
 
 # add to PATH
-Write-Host "Setting environment variables..."
+Write-Host "---[Setting environment variables]---"
 $installDirs = @(
     "${env:ProgramFiles}\Java\jdk-*\bin",
     "${env:ProgramFiles}\Python\Scripts",
@@ -44,7 +41,7 @@ $newPath += ";$oldPath"
 
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
-Write-Host "Installation finished!"
+Write-Host "---[INSTALLATION FINISHED]---"
 
 function Show-Menu {
     Write-Host "Extras (^C to exit)`n"

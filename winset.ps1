@@ -4,23 +4,23 @@ Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.We
 
 Write-Host "---[Installing packages]---"
 # runtime
-choco install -y vcredist-all
-choco install -y dotnet
-choco install -y openjdk
-choco install -y python --params "/InstallDir:C:\Python"
+choco upgrade -y vcredist-all
+choco upgrade -y dotnet
+choco upgrade -y openjdk
+choco upgrade -y python --params "/InstallDir:C:\Python"
 # development
-choco install -y git
-choco install -y cygwin
-choco install -y mingw
-choco install -y msys2
+choco upgrade -y git
+choco upgrade -y cygwin
+choco upgrade -y mingw
+choco upgrade -y msys2
 # general
-choco install -y openvpn
-choco install -y axel
-choco install -y 7zip
-choco install -y mpv
-choco install -y mupdf
-choco install -y ffmpeg
-choco install -y yt-dlp
+choco upgrade -y openvpn
+choco upgrade -y axel
+choco upgrade -y 7zip
+choco upgrade -y mpv
+choco upgrade -y mupdf
+choco upgrade -y ffmpeg
+choco upgrade -y yt-dlp
 
 # add to PATH
 Write-Host "---[Setting environment variables]---"
@@ -72,8 +72,8 @@ while ($true) {
     foreach ($option in $selectedOptions) {
         switch ($option) {
             "0" { irm https://massgrave.dev/get | iex }
-            "1" { choco install -y firefoxesr }
-            "2" { choco install -y vim }
+            "1" { choco upgrade -y firefoxesr }
+            "2" { choco upgrade -y vim }
             default { Write-Host "Invalid input!`n" }
         }
     }

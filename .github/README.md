@@ -27,7 +27,6 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 - gnupg
 - sysinternals
 - wireshark
-- openvpn
 - axel
 - winget
 - 7zip

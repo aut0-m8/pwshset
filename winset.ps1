@@ -45,7 +45,8 @@ Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 Write-Host "---[INSTALLATION FINISHED]---"
 
 function Show-Menu {
-    Write-Host "Extras (^C to exit)`n"
+    Write-Host "Extras`n"
+    Write-Host "q to exit`n"
     Write-Host "0 - Run MAS (Microsoft Activation Scripts)`n"
     Write-Host "1 - Install Firefox ESR`n"
     Write-Host "2 - Install Vim`n"

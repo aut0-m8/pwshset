@@ -14,6 +14,7 @@ choco install -y cygwin
 choco install -y mingw
 choco install -y msys2
 # general
+choco install -y openvpn
 choco install -y axel
 choco install -y 7zip
 choco install -y mpv

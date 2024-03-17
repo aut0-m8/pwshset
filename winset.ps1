@@ -64,8 +64,7 @@ Write-Host "2 - install Firefox ESR"
 Write-Host "3 - install NeoVim"
 
 while ($true) {
-    $choice = Read-Host ":"
-    foreach ($option in $selectedOptions) {
+    $option = Read-Host ":"
         switch ($option) {
             "0" { irm https://massgrave.dev/get | iex }
             "1" { irm https://christitus.com/win | iex }
@@ -74,7 +73,6 @@ while ($true) {
             "q" { exit }
             default { Write-Host "Invalid input!`n" }
         }
-        break
     }
 
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

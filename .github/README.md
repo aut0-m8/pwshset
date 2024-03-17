@@ -8,6 +8,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 1. Open PowerShell as Administrator
 2. `irm https://aut0-m8.github.io/winset | iex`
 
+**Do not run the ps1 from the master branch. If you need the ps1, download it from a release.**
 ### package list:
 #### runtime
 - vcredist-all

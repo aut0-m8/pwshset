@@ -74,6 +74,23 @@ function Install-NuGet {
 
 $pkgMgrs = $packages | Select-Object -ExpandProperty pkgMgr -Unique
 
+    switch ($pkgMgr) {
+        "c" { $pkgMgr = "choco" }
+        "w" { $pkgMgr = "winget" }
+        "s" { $pkgMgr = "scoop" }
+        "n" { $pkgMgr = "nuget" }
+        Default { Write-Host "Invalid package manager abbreviation: $pkgMgr" }
+    }
+
+    switch ($pkgAction) {
+        "i" { $pkgAction = "install" }
+        "r" { $pkgAction = "remove" }
+        "p" { $pkgAction = "purge" }
+        "ud" { $pkgAction = "update" }
+        "ug" { $pkgAction = "upgrade" }
+        Default { Write-Host "Invalid package action abbreviation: $pkgAction" }
+    }
+
 foreach ($pkgMgr in $pkgMgrs) {
     switch -Wildcard ($pkgMgr) {
         'choco' { Install-Chocolatey; break }
@@ -83,6 +100,8 @@ foreach ($pkgMgr in $pkgMgrs) {
         default { break }
     }
 }
+
+
 # install
 foreach ($package in $packages) {
     Write-Host "[-] processing package $($package.pkgName)"

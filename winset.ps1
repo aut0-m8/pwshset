@@ -53,7 +53,7 @@ function Show-Menu {
 
 while ($true) {
     Show-Menu
-    $choice = Read-Host ""
+    $choice = Read-Host ":"
 
     $selectedOptions = @()
 

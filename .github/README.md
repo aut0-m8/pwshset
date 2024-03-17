@@ -12,6 +12,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 #### runtime
 - vcredist-all
 - dotnet
+- directx
 - openjdk
 #### development
 - git

@@ -23,7 +23,7 @@ Package list:
 - yt-dlp
 
 ### extra options (optional)
-- Activate Windows with [https://github.com/massgravel/Microsoft-Activation-Scripts](Microsoft Activation Scripts)
+- Activate Windows with Microsoft Activation Scripts
 - Install Firefox ESR
 - Install vim
 

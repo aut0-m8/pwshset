@@ -73,7 +73,5 @@ while ($true) {
             "q" { exit }
             default { Write-Host "Invalid input!`n" }
         }
-    }
-
-    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }

@@ -1,4 +1,5 @@
-<p><img src="https://raw.githubusercontent.com/aut0-m8/winset/main/winset.png" alt="winset logo"></p>
+<p><img src="https://raw.githubusercontent.com/aut0-m8/winset/main/winset.png" alt="winset logo" width="200"></p>
+
 # `winset`
 
 Install script for basic Windows packages and utilities. Intended for use on Windows 10 and above. Script uses chocolatey as the package manager.

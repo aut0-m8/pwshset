@@ -1,0 +1,25 @@
+#choco=c | winget=w | scoop=s | nuget=n
+#install=i | remove=r | purge=p | update=ud | upgrade=ug
+pkgMgr,pkgAction,pkgFlags,pkgName
+c,ug,-y,chocolatey-core.extension
+c,ug,-y,vcredist-all
+c,ug,-y,dotnet
+c,ug,-y,directx
+c,ug,-y,openjdk
+c,ug,-y,git
+c,ug,-y,make
+c,ug,-y,cygwin
+c,ug,-y,mingw
+c,ug,-y,msys2
+c,ug,-y,golang
+c,ug,-y,python
+c,ug,-y,gnupg
+c,ug,-y,sysinternals
+c,ug,-y,wireshark
+c,ug,-y,openvpn
+c,ug,-y,winget
+c,ug,-y,7zip
+c,ug,-y,mpv
+c,ug,-y,mupdf
+c,ug,-y,ffmpeg
+c,ug,-y,yt-dlp

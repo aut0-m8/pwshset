@@ -19,6 +19,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 - mingw
 - msys2
 #### general
+- openvpn
 - axel
 - winget
 - 7zip

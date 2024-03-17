@@ -18,6 +18,8 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 - mingw
 - msys2
 #### general
+- sysinternals
+- powertoys
 - openvpn
 - axel
 - winget
@@ -30,7 +32,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 ### extra options
 - Activate Windows with Microsoft Activation Scripts
 - Install Firefox ESR
-- Install vim
+- Install Vim
 
 **Suggest** more packages in issues.
 

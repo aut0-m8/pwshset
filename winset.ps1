@@ -53,7 +53,7 @@ $newPath += ";$oldPath"
 [Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
 
 Write-Host "[-] cleaning up"
-Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force
+Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force -Recurse
 
 Write-Host "[!]" -NoNewline -ForegroundColor Green
 Write-Host "installation finished"

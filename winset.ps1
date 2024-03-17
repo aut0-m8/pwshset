@@ -1,93 +1,74 @@
-# choco
-if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
-    Write-Host "[-] running chocolatey install script"
-    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+# read csv path
+function Get-CsvPathFromIni {
+    param(
+        [string]$iniContent
+    )
+    $csvPath = ($iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)'}).Matches.Groups[1].Value.Trim()
+    return $csvPath
 }
 
-$pkgMgr = choco
-$pkgName = axel
-$pkgVer = 1.0.0
-$pkgSrc = 
-$pkgFlags = upgrade -y --allow-downgrade
+# Define a default URL to the INI file
+$defaultIniUrl = "https://example.com/default.ini"
 
-# install pkg
-function InstallPkg {
-  param([string]$pkgName)
-  Write-Host "[-] fetching & upgrading $pkgName"
-  $pkgmgr $mgrflags $pkgName # > $null
+# Define the URL to the INI file
+if ($args.Count -eq 0) {
+    $iniUrl = $defaultIniUrl
+} else {
+    $iniUrl = $args[0]
 }
 
-# read csv
+# grab settings
+try {
+    $iniContent = (iwr -Uri $iniUrl).Content
+} catch {
+    Write-Host "[!] " -NoNewline -ForegroundColor Red
+    Write-Host "could not grab settings"
+}
+
+$csvPath = Get-CsvPathFromIni -iniContent $iniContent
+
+if ($csvPath -eq $null) {
+    Write-Host "[!] " -NoNewline -ForegroundColor Red
+    Write-Host "could not grab packages"
+}
+
 function ReadPackagesFromCSV {
     param(
         [string]$csvPath
     )
+
     if (Test-Path $csvPath) {
-        Import-Csv $csvPath
-    } else {
-        Write-Host "[!] " -NoNewline -ForegroundColor Red
-        Write-Host "csv not found, falling back to default in 3 seconds (^c to cancel)"
-        3 | Start-Sleep
-        try {
-            $response = iwr https://
-            $content = $response.Content
-            $csvContent = ConvertFrom-Csv $content
-            return $csvContent
-        } catch {
-            Write-Host "[Error] Failed to fetch data from $url" -ForegroundColor Red
-            return @()
-        }
+        $packages = Import-Csv $csvPath
+        return $packages
     }
 }
 
-# Define the path to the CSV file
-$csvPath = "C:\path\to\your\packages.csv"  # Update this with the actual path
-
-# Read package names from the CSV file
 $packages = ReadPackagesFromCSV -csvPath $csvPath
 
-# Iterate over each package and install it
+# install
 foreach ($package in $packages) {
-    InstallPkg -pkgName $package.Name
+    Write-Host "[-] processing package $($package.pkgName)"
+    $pkgMgr = $package.pkgMgr
+    $pkgAction = $package.pkgAction
+    $pkgFlags = $package.pkgFlags
+    $pkgName = $package.pkgName
+
+    iex "$pkgMgr $pkgAction $pkgFlags $pkgName"
 }
 
-Write-Host "[-] installing pkgs"
-# runtime
-choco upgrade -y vcredist-all
-choco upgrade -y dotnet
-choco upgrade -y directx
-choco upgrade -y openjdk
-# development
-choco upgrade -y git
-choco upgrade -y make
-choco upgrade -y cygwin
-choco upgrade -y mingw
-choco upgrade -y msys2
-choco upgrade -y golang
-choco upgrade -y python --params "/InstallDir:C:\Python"
-# general
-choco upgrade -y gnupg
-choco upgrade -y sysinternals
-choco upgrade -y wireshark
-choco upgrade -y openvpn
-choco upgrade -y axel
-choco upgrade -y 7zip
-choco upgrade -y mpv
-choco upgrade -y mupdf
-choco upgrade -y ffmpeg
-choco upgrade -y yt-dlp
-
+# cleanup
 Write-Host "[-] cleaning up"
 Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force -Recurse
 
-Write-Host "[!]" -NoNewline -ForegroundColor Green
-Write-Host "installation finished"
+# Final messages
+Write-Host "[!] " -NoNewline -ForegroundColor Green
+Write-Host "installation finished!"
 Write-Host "extras [q to exit]"
 Write-Host "------------------"
-Write-Host "0 - permanently activate Windows"
-Write-Host "1 - run winutil"
-Write-Host "2 - install Firefox ESR"
-Write-Host "3 - install NeoVim"
+Write-Host "0 - Permanently activate Windows"
+Write-Host "1 - Run winutil"
+Write-Host "2 - Install Firefox ESR"
+Write-Host "3 - Install NeoVim"
 
 function InstallOption {
     param(
@@ -100,10 +81,11 @@ function InstallOption {
         '2' { choco upgrade -y firefoxesr; break }
         '3' { choco upgrade -y neovim; break }
         'q' { exit }
-        default { Write-Host "invalid input" }
+        default { Write-Host "Invalid input" }
     }
 }
 
+# Loop to handle user input for additional installations
 while ($true) {
     $key = [System.Console]::ReadKey($true).KeyChar
     InstallOption -inputChar $key

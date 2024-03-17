@@ -53,7 +53,7 @@ function Show-Menu {
 
 while ($true) {
     Show-Menu
-    $choice = Read-Host "> "
+    $choice = Read-Host ""
 
     $selectedOptions = @()
 
@@ -71,10 +71,9 @@ while ($true) {
     foreach ($option in $selectedOptions) {
         switch ($option) {
             "0" { irm https://massgrave.dev/get | iex }
-            "1" { choco install firefoxesr }
-            "2" { choco install mupdf }
-            "2" { choco install vim }
-            default { Write-Host "Invalid" }
+            "1" { choco install -y firefoxesr }
+            "2" { choco install -y vim }
+            default { Write-Host "Invalid input!`n" }
         }
     }
 

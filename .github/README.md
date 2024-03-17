@@ -20,12 +20,11 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 - cygwin
 - mingw
 - msys2
-- docker-desktop
+- golang
 - python
 #### general
 - gnupg
 - sysinternals
-- powertoys
 - wireshark
 - openvpn
 - axel
@@ -39,7 +38,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 ### extra options
 - Activate Windows with Microsoft Activation Scripts
 - Install Firefox ESR
-- Install Vim
+- Install NeoVim
 
 **Suggest** more packages in issues.
 

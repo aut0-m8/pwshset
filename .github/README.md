@@ -1,4 +1,4 @@
-<p><img src="https://raw.githubusercontent.com/aut0-m8/winset/main/winset.png" alt="winset logo" width="200"></p>
+<p><img src="https://raw.githubusercontent.com/aut0-m8/winset/main/.github/winset.png" alt="winset logo" width="200"></p>
 
 # `winset`
 

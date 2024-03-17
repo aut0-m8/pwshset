@@ -7,15 +7,19 @@ Write-Host "---[Installing packages]---"
 choco upgrade -y vcredist-all
 choco upgrade -y dotnet
 choco upgrade -y openjdk
-choco upgrade -y python --params "/InstallDir:C:\Python"
 # development
 choco upgrade -y git
+choco upgrade -y make
 choco upgrade -y cygwin
 choco upgrade -y mingw
 choco upgrade -y msys2
+choco upgrade -y docker-desktop
+choco upgrade -y python --params "/InstallDir:C:\Python"
 # general
+choco upgrade -y gnupg
 choco upgrade -y sysinternals
 choco upgrade -y powertoys
+choco upgrade -y wireshark
 choco upgrade -y openvpn
 choco upgrade -y axel
 choco upgrade -y 7zip
@@ -34,7 +38,10 @@ $installDirs = @(
     "${env:ProgramFiles}\yt-dlp",
     "${env:ProgramFiles}\ffmpeg\bin",
     "${env:ProgramFiles}\Git\cmd",
-    "${env:ProgramFiles}\7-Zip"
+    "${env:ProgramFiles}\7-Zip",
+    "${env:ProgramFiles}\cygwin\bin",
+    "${env:ProgramFiles}\mingw\bin",
+    "${env:ProgramFiles}\msys2\usr\bin"
 )
 
 $oldPath = [Environment]::GetEnvironmentVariable("Path", "Machine")

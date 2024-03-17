@@ -74,7 +74,7 @@ while ($true) {
             "1" { choco install firefoxesr }
             "2" { choco install mupdf }
             "2" { choco install vim }
-            default
+            default Write-Host ""
         }
     }
 

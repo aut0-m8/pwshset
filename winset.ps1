@@ -1,11 +1,14 @@
 # choco
-Write-Host "---[Installing Chocolatey]---"
-Set-ExecutionPolicy ByPass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+    Write-Host "[-] running chocolatey install script"
+    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+}
 
-Write-Host "---[Installing packages]---"
+Write-Host "[-] installing pkgs"
 # runtime
 choco upgrade -y vcredist-all
 choco upgrade -y dotnet
+choco upgrade -y directx
 choco upgrade -y openjdk
 # development
 choco upgrade -y git
@@ -29,7 +32,7 @@ choco upgrade -y ffmpeg
 choco upgrade -y yt-dlp
 
 # add to PATH
-Write-Host "---[Setting environment variables]---"
+Write-Host "[-] setting environment variables"
 $installDirs = @(
     "${env:ProgramFiles}\Java\jdk-*\bin",
     "${env:ProgramFiles}\Python\Scripts",
@@ -51,12 +54,13 @@ $newPath += ";$oldPath"
 
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
-Write-Host "---[INSTALLATION FINISHED]---"
-Write-Host "Extras`n"
+Write-Host "[!]" -NoNewline -ForegroundColor Green
+Write-Host "installation finished"
 Write-Host "q to exit`n"
-Write-Host "0 - Run MAS (Microsoft Activation Scripts)`n"
-Write-Host "1 - Install Firefox ESR`n"
-Write-Host "2 - Install Vim`n"
+Write-Host "0 - permanently activate Windows`n"
+Write-Host "1 - run winutil"
+Write-Host "2 - install Firefox ESR`n"
+Write-Host "3 - install Vim`n"
 
 while ($true) {
     $choice = Read-Host ":"
@@ -76,9 +80,10 @@ while ($true) {
 
     foreach ($option in $selectedOptions) {
         switch ($option) {
-            "0" { irm https://massgrave.dev/get | iex }
-            "1" { choco upgrade -y firefoxesr }
-            "2" { choco upgrade -y vim }
+            "0" { irm https://massgrave.dev/get| iex }
+            "1" { irm https://christitus.com/win | iex }
+            "2" { choco upgrade -y firefoxesr }
+            "3" { choco upgrade -y vim-console }
             "q" { exit }
             default { Write-Host "Invalid input!`n"; break }
         }

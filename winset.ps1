@@ -18,7 +18,7 @@ if ($args.Count -eq 0) {
 
 # grab settings
 try {
-    $iniContent = (iwr -Uri $iniUrl -UseBasicParsing).Content
+    $iniContent = (irm $iniUrl).Content
 } catch {
     Write-Host "[!] " -NoNewline -ForegroundColor Red
     Write-Host "could not grab settings"

@@ -4,14 +4,17 @@ if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 }
 
-$pkgmgr = choco
-$pkgflags = upgrade -y
+$pkgMgr = choco
+$pkgName = axel
+$pkgVer = 1.0.0
+$pkgSrc = 
+$pkgFlags = upgrade -y --allow-downgrade
 
 # install pkg
 function InstallPkg {
   param([string]$pkgName)
   Write-Host "[-] fetching & upgrading $pkgName"
-  $pkgmgr $mgrflags $pkgName > $null
+  $pkgmgr $mgrflags $pkgName # > $null
 }
 
 # read csv
@@ -23,8 +26,17 @@ function ReadPackagesFromCSV {
         Import-Csv $csvPath
     } else {
         Write-Host "[!] " -NoNewline -ForegroundColor Red
-        Write-Host "csv not found, use default?"
-        return @()
+        Write-Host "csv not found, falling back to default in 3 seconds (^c to cancel)"
+        3 | Start-Sleep
+        try {
+            $response = iwr https://
+            $content = $response.Content
+            $csvContent = ConvertFrom-Csv $content
+            return $csvContent
+        } catch {
+            Write-Host "[Error] Failed to fetch data from $url" -ForegroundColor Red
+            return @()
+        }
     }
 }
 

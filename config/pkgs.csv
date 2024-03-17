@@ -1,11 +1,14 @@
 #choco=c | winget=w | scoop=s | nuget=n
 #install=i | remove=r | purge=p | update=ud | upgrade=ug
+#packages are managed in the order you put them in!
 pkgMgr,pkgAction,pkgFlags,pkgName
+#runtime
 c,ug,-y,chocolatey-core.extension
 c,ug,-y,vcredist-all
 c,ug,-y,dotnet
 c,ug,-y,directx
 c,ug,-y,openjdk
+#development
 c,ug,-y,git
 c,ug,-y,make
 c,ug,-y,cygwin
@@ -13,6 +16,7 @@ c,ug,-y,mingw
 c,ug,-y,msys2
 c,ug,-y,golang
 c,ug,-y,python
+#general
 c,ug,-y,gnupg
 c,ug,-y,sysinternals
 c,ug,-y,wireshark

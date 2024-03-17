@@ -43,17 +43,13 @@ $newPath += ";$oldPath"
 Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
 
 Write-Host "---[INSTALLATION FINISHED]---"
-
-function Show-Menu {
-    Write-Host "Extras`n"
-    Write-Host "q to exit`n"
-    Write-Host "0 - Run MAS (Microsoft Activation Scripts)`n"
-    Write-Host "1 - Install Firefox ESR`n"
-    Write-Host "2 - Install Vim`n"
-}
+Write-Host "Extras`n"
+Write-Host "q to exit`n"
+Write-Host "0 - Run MAS (Microsoft Activation Scripts)`n"
+Write-Host "1 - Install Firefox ESR`n"
+Write-Host "2 - Install Vim`n"
 
 while ($true) {
-    Show-Menu
     $choice = Read-Host ":"
 
     $selectedOptions = @()
@@ -74,7 +70,8 @@ while ($true) {
             "0" { irm https://massgrave.dev/get | iex }
             "1" { choco upgrade -y firefoxesr }
             "2" { choco upgrade -y vim }
-            default { Write-Host "Invalid input!`n" }
+            "q" { exit }
+            default { Write-Host "Invalid input!`n"; break }
         }
     }
 

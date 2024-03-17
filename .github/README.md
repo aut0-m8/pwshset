@@ -4,7 +4,7 @@ Install script for basic Windows packages and utilities. Intended for use on Win
 
 ### to run
 1. Open PowerShell as Administrator
-2. `irm https://raw.githubusercontent.com/aut0-m8/winset/main/winset.ps1 | iex`
+2. `irm https://aut0-m8.github.io/winset | iex`
 
 ### package list:
 #### runtime

@@ -14,6 +14,8 @@ choco upgrade -y cygwin
 choco upgrade -y mingw
 choco upgrade -y msys2
 # general
+choco upgrade -y sysinternals
+choco upgrade -y powertoys
 choco upgrade -y openvpn
 choco upgrade -y axel
 choco upgrade -y 7zip

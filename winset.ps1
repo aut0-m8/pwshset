@@ -52,7 +52,8 @@ $newPath = $installDirs -join ";"
 $newPath += ";$oldPath"
 [Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
 
-Remove-Item "$env:TEMP\chocolatey" -Recurse -Force
+Write-Host "[-] cleaning up"
+Get-ChildItem $env:TEMP\chocolatey -Recurse | Remove-Item -Force
 
 Write-Host "[!]" -NoNewline -ForegroundColor Green
 Write-Host "installation finished"
@@ -61,6 +62,7 @@ Write-Host "0 - permanently activate Windows`n"
 Write-Host "1 - run winutil"
 Write-Host "2 - install Firefox ESR`n"
 Write-Host "3 - install Vim`n"
+Write-Host "0-3, 0 1 2 3, 0"
 
 while ($true) {
     $choice = Read-Host ":"
@@ -85,8 +87,9 @@ while ($true) {
             "2" { choco upgrade -y firefoxesr }
             "3" { choco upgrade -y vim-console }
             "q" { exit }
-            default { Write-Host "Invalid input!`n"; break }
+            default { Write-Host "Invalid input!`n" }
         }
+        break
     }
 
     $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

@@ -5,7 +5,7 @@ function FetchIniVars {
     
     $csvPathMatch = $iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)'}
     $menuMatch = $iniContent | Where-Object {$_ -match '^\s*menu\s*=\s*(.+)'}
-    Write-Host $iniContent
+    Write-Host $iniContent SUCCESS
     if ($csvPathMatch -and $menuMatch) {
         $csvPath = $csvPathMatch.Groups[1].Value.Trim()
         $menu = $menuMatch.Groups[1].Value.Trim()
@@ -29,7 +29,6 @@ try {
     Write-Host "could not grab settings"
 }
 
-Write-Host $iniContent
 $csvPath = FetchIniVars -iniContent $iniContent
 $menu = FetchIniVars -iniContent $iniContent
 

@@ -19,8 +19,6 @@ function ReadPackagesFromCSV {
     }
 }
 
-$packages = ReadPackagesFromCSV -csvPath $csvPath
-
 function Install-Chocolatey {
     if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
         Write-Host "[-] fetching & installing chocolatey"
@@ -48,7 +46,20 @@ function Install-NuGet {
     }
 }
 
+$packages = ReadPackagesFromCSV -csvPath $csvPath
 $pkgMgrs = $packages | Select-Object -ExpandProperty pkgMgr -Unique
+foreach ($package in $packages
+Write-Host $packages
+
+foreach ($pkgMgr in $pkgMgrs) {
+    switch -Wildcard ($pkgMgr) {
+        'choco' { Install-Chocolatey; break }
+        'winget' { Install-Winget; break }
+        'scoop' { Install-Scoop; break }
+        'nuget' { Install-NuGet; break }
+        default { break }
+    }
+}
 
     switch ($pkgMgr) {
         "c" { $pkgMgr = "choco" }
@@ -66,17 +77,6 @@ $pkgMgrs = $packages | Select-Object -ExpandProperty pkgMgr -Unique
         "ug" { $pkgAction = "upgrade" }
         Default { Write-Host "Invalid package action abbreviation: $pkgAction" }
     }
-
-foreach ($pkgMgr in $pkgMgrs) {
-    switch -Wildcard ($pkgMgr) {
-        'choco' { Install-Chocolatey; break }
-        'winget' { Install-Winget; break }
-        'scoop' { Install-Scoop; break }
-        'nuget' { Install-NuGet; break }
-        default { break }
-    }
-}
-
 
 # install
 foreach ($package in $packages) {

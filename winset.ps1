@@ -48,8 +48,8 @@ function Install-NuGet {
 
 $packages = ReadPackagesFromCSV -csvPath $csvPath
 $pkgMgrs = $packages | Select-Object -ExpandProperty pkgMgr -Unique
-foreach ($package in $packages
-Write-Host $packages
+foreach ($package in $packages) {
+Write-Host $packages }
 
 foreach ($pkgMgr in $pkgMgrs) {
     switch -Wildcard ($pkgMgr) {

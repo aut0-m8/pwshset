@@ -2,6 +2,8 @@ function FetchIniVars {
     param(
         [string]$iniContent
     )
+
+    Write-Host $iniContent
     
     $csvPathMatch = $iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)'}
     $menuMatch = $iniContent | Where-Object {$_ -match '^\s*menu\s*=\s*(.+)'}

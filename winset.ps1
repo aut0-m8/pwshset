@@ -1,12 +1,3 @@
-try {
-  $iniContent = irm $iniUrl | Out-String
-}
-
-catch {
-  Write-Host "[!] " -NoNewline -ForegroundColor Red
-  Write-Host "could not grab settings"
-}
-
 $csvPath = https://raw.githubusercontent.com/aut0-m8/winset/main/config/pkgs.csv
 $menu = 1
 

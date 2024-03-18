@@ -86,7 +86,7 @@ foreach ($package in $packages) {
     $pkgFlags = $package.pkgFlags
     $pkgName = $package.pkgName
 
-    iex "$pkgMgr $pkgAction $pkgFlags $pkgName" > $null
+    iex "$pkgMgr $pkgAction $pkgFlags $pkgName"
 }
 
 # cleanup

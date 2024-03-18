@@ -12,7 +12,7 @@ $IniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings
 
 # grab settings
 try {
-    $iniContent = (irm $iniUrl).Content
+    $iniContent = irm $iniUrl
 } catch {
     Write-Host "[!] " -NoNewline -ForegroundColor Red
     Write-Host "could not grab settings"

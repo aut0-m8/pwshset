@@ -29,6 +29,7 @@ try {
     Write-Host "could not grab settings"
 }
 
+Write-Host $iniContent
 $csvPath = FetchIniVars -iniContent $iniContent
 
 if ($csvPath -eq $null) {

@@ -1,46 +1,14 @@
-function FetchIniVars {
-    param(
-        [string]$iniContent
-    )
-    
-    $lines = $iniContent -split '\r?\n'
-    
-    $csvPath = ""
-    $menu = ""
-    
-    foreach ($line in $lines) {
-        if ($line -match '^\s*csv_path\s*=\s*(.+)') {
-            $csvPath = $matches[1].Trim()
-        }
-        elseif ($line -match '^\s*menu\s*=\s*(.+)') {
-            $menu = $matches[1].Trim()
-        }
-    }
-    
-    if ($csvPath -ne "" -and $menu -ne "") {
-        return @{ CsvPath = $csvPath; Menu = $menu }
-    }
-    else {
-        Write-Host "[!]" -ForegroundColor Red
-        Write-Host "could not read settings"
-        return $null
-    }
-}
-
-
-
-$iniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings.ini"
-
-# grab settings
 try {
-    $iniContent = irm $iniUrl | Out-String
-} catch {
-    Write-Host "[!] " -NoNewline -ForegroundColor Red
-    Write-Host "could not grab settings"
+  $iniContent = irm $iniUrl | Out-String
 }
 
-$csvPath = FetchIniVars -iniContent $iniContent
-$menu = FetchIniVars -iniContent $iniContent
+catch {
+  Write-Host "[!] " -NoNewline -ForegroundColor Red
+  Write-Host "could not grab settings"
+}
+
+$csvPath = https://raw.githubusercontent.com/aut0-m8/winset/main/config/pkgs.csv
+$menu = 1
 
 if ($csvPath -eq $null) {
     Write-Host "[!] " -NoNewline -ForegroundColor Red

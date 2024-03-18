@@ -8,13 +8,7 @@ function FetchIniVars {
     return @{ CsvPath = $csvPath; Menu = $menu }
 }
 
-$defaultIniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings.ini"
-
-if ($args.Count -eq 0) {
-    $iniUrl = $defaultIniUrl
-} else {
-    $iniUrl = $args[0]
-}
+$IniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings.ini"
 
 # grab settings
 try {

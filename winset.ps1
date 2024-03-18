@@ -3,9 +3,9 @@ function FetchIniVars {
         [string]$iniContent
     )
     
-    $csvPathMatch = $iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)'}
-    $menuMatch = $iniContent | Where-Object {$_ -match '^\s*menu\s*=\s*(.+)'}
-    Write-Host $iniContent SUCCESS
+    $csvPathMatch = $iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)$'}
+    $menuMatch = $iniContent | Where-Object {$_ -match '^\s*menu\s*=\s*(.+)$'}
+    
     if ($csvPathMatch -and $menuMatch) {
         $csvPath = $csvPathMatch.Groups[1].Value.Trim()
         $menu = $menuMatch.Groups[1].Value.Trim()

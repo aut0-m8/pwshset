@@ -1,4 +1,6 @@
-$csvPath = https://raw.githubusercontent.com/aut0-m8/winset/main/config/pkgs.csv
+Set-ExecutionPolicy ByPass -Scope Process -Force
+
+$csvPath = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/pkgs.csv"
 $menu = 1
 
 if ($csvPath -eq $null) {
@@ -22,7 +24,6 @@ $packages = ReadPackagesFromCSV -csvPath $csvPath
 function Install-Chocolatey {
     if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
         Write-Host "[-] fetching & installing chocolatey"
-        Set-ExecutionPolicy Bypass -Scope Process -Force;
         iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) > $null
     }
 }

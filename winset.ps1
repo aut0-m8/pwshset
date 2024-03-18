@@ -9,7 +9,7 @@ function FetchIniVars {
     if ($csvPathMatch -and $menuMatch) {
         $csvPath = $csvPathMatch.Groups[1].Value.Trim()
         $menu = $menuMatch.Groups[1].Value.Trim()
-        return @{ CsvPath = $csvPath; Menu = $menu }
+        return @{ csvPath = $csvPath; menu = $menu }
     }
     else {
         Write-Host "[!]" -ForegroundColor Red
@@ -23,7 +23,7 @@ $iniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings
 
 # grab settings
 try {
-    $iniContent = irm $iniUrl
+    $iniContent = irm $iniUrl | Out-String
 } catch {
     Write-Host "[!] " -NoNewline -ForegroundColor Red
     Write-Host "could not grab settings"
@@ -31,6 +31,7 @@ try {
 
 Write-Host $iniContent
 $csvPath = FetchIniVars -iniContent $iniContent
+$menu = FetchIniVars -iniContent $iniContent
 
 if ($csvPath -eq $null) {
     Write-Host "[!] " -NoNewline -ForegroundColor Red

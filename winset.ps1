@@ -2,25 +2,24 @@ function FetchIniVars {
     param(
         [string]$iniContent
     )
-
-    Write-Host $iniContent
     
     $csvPathMatch = $iniContent | Where-Object {$_ -match '^\s*csv_path\s*=\s*(.+)'}
     $menuMatch = $iniContent | Where-Object {$_ -match '^\s*menu\s*=\s*(.+)'}
-    
+    Write-Host
     if ($csvPathMatch -and $menuMatch) {
         $csvPath = $csvPathMatch.Groups[1].Value.Trim()
         $menu = $menuMatch.Groups[1].Value.Trim()
         return @{ CsvPath = $csvPath; Menu = $menu }
     }
     else {
-        Write-Host "[!] Error: Could not extract values from INI content." -ForegroundColor Red
+        Write-Host "[!]" -ForegroundColor Red
+        Write-Host "could not read settings"
         return $null
     }
 }
 
 
-$IniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings.ini"
+$iniUrl = "https://raw.githubusercontent.com/aut0-m8/winset/main/config/settings.ini"
 
 # grab settings
 try {

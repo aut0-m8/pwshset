@@ -11,3 +11,7 @@ Currently under **BETA**. Check release tag 1.1.0 to see what running the script
 2. `irm https://aut0-m8.github.io/pwshset | iex`
 
 **Do not run the ps1 from the master branch. If you need the ps1, download it from a release.**
+
+## [bash equivalent](https://github.com/aut0-m8/bashset)
+bashset is an equivalent of this script on bash.
+**[COMING SOON]**

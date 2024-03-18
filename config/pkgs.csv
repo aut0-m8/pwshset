@@ -1,3 +1,4 @@
+#this is the default csv.
 #choco=c | winget=w | scoop=s | nuget=n
 #install=i | remove=r | purge=p | update=ud | upgrade=ug
 #packages are managed in the order you put them in!
